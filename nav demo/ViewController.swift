@@ -167,9 +167,34 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 }
 
 extension ViewController: SearchControllerDelegate {
-    func searchResultSelected(_ searchResult: SearchResult) { }
     func categorySearchResultsReceived(results: [SearchResult]) {
+        
+        let annotations = results.map { searchResult -> MGLPointAnnotation in
+            let annotation = MGLPointAnnotation()
+            annotation.coordinate = searchResult.coordinate
+            annotation.title = searchResult.name
+            annotation.subtitle = searchResult.address?.formattedAddress(style: .medium)
+            
+            return annotation
+        }
+        showAnnotation(annotations, isPOI: false)
     }
     
-    func userFavoriteSelected(_ userFavorite: FavoriteRecord) { }
+    func searchResultSelected(_ searchResult: SearchResult) {
+        let annotation = MGLPointAnnotation()
+        annotation.coordinate = searchResult.coordinate
+        annotation.title = searchResult.name
+        annotation.subtitle = searchResult.address?.formattedAddress(style: .medium)
+        
+        showAnnotation([annotation], isPOI: searchResult.type == .POI)
+    }
+    
+    func userFavoriteSelected(_ userFavorite: FavoriteRecord) {
+        let annotation = MGLPointAnnotation()
+        annotation.coordinate = userFavorite.coordinate
+        annotation.title = userFavorite.name
+        annotation.subtitle = userFavorite.address?.formattedAddress(style: .medium)
+        
+        showAnnotation([annotation], isPOI: true)
+    }
 }
