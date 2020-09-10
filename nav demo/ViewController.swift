@@ -10,11 +10,15 @@ import Mapbox
 import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
+import MapboxSearch
+import MapboxSearchUI
 
 class ViewController: UIViewController, MGLMapViewDelegate {
     var mapView: NavigationMapView!
     var routeOptions: NavigationRouteOptions?
     var route: Route?
+    
+    let searchController = MapboxSearchController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +29,13 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         view.addSubview(mapView)
         
         mapView.delegate = self
+        searchController.delegate = self
+        let panelController = MapboxPanelController(rootViewController: searchController)
+        addChild(panelController)
         
         // Allow the map to display the users location.
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true, completionHandler: nil)
-        
-        // check
-        
         
         // Add a gesture recognizer to the map view
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector (didLongPress(_:)))
@@ -131,8 +135,10 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         navigationViewController.modalPresentationStyle = .fullScreen
         self.present(navigationViewController, animated: true, completion: nil)
     }
-    
-    
+}
 
-
+extension ViewController: SearchControllerDelegate {
+    func searchResultSelected(_ searchResult: SearchResult) { }
+    func categorySearchResultsReceived(results: [SearchResult]) { }
+    func userFavoriteSelected(_ userFavorite: FavoriteRecord) { }
 }
