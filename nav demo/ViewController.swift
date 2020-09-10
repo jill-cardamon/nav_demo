@@ -17,6 +17,7 @@ class ViewController: UIViewController, MGLMapViewDelegate {
     var mapView: NavigationMapView!
     var routeOptions: NavigationRouteOptions?
     var route: Route?
+    var startButton: UIButton?
     
     let searchController = MapboxSearchController()
 
@@ -40,6 +41,14 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         // Add a gesture recognizer to the map view
 //        let longPress = UILongPressGestureRecognizer(target: self, action: #selector (didLongPress(_:)))
 //        mapView.addGestureRecognizer(longPress)
+        
+//        // put a start button in
+//        startButton = UIButton()
+//        startButton?.setTitle("Start Navigation", for: .normal)
+//        startButton?.translatesAutoresizingMaskIntoConstraints = false
+//        startButton?.backgroundColor = .blue
+//        startButton?.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+//
 
     }
     
