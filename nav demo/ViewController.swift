@@ -38,8 +38,8 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         mapView.setUserTrackingMode(.follow, animated: true, completionHandler: nil)
         
         // Add a gesture recognizer to the map view
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector (didLongPress(_:)))
-        mapView.addGestureRecognizer(longPress)
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector (didLongPress(_:)))
+//        mapView.addGestureRecognizer(longPress)
 
     }
     
@@ -59,7 +59,20 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 //
 //    }
     
-    func showAnnotation(_ annotations: )
+    func showAnnotation(_ annotations: [MGLAnnotation], isPOI: Bool) {
+        guard !annotations.isEmpty else { return }
+        
+        if let existingAnnotations = mapView.annotations {
+            mapView.removeAnnotations(existingAnnotations)
+        }
+        mapView.addAnnotations(annotations)
+        
+        if annotations.count == 1, let annotation = annotations.first {
+            mapView.setCenter(annotation.coordinate, zoomLevel: 15, animated: true)
+        } else {
+            mapView.showAnnotations(annotations, animated: true)
+        }
+    }
     
     // Display search results
     func displaySearchResults(_ results: [SearchResult]) {
