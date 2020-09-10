@@ -43,20 +43,36 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 
     }
     
-    @objc func didLongPress(_ sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else { return }
-        
-        // Convert points where user did a long press to map coordinates
-        let point = sender.location(in: mapView)
-        let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
-        
-        if let origin = mapView.userLocation?.coordinate {
-            // Calculate the route from the user's location to the set location
-            calculateRoute(from: origin, to: coordinate)
-        } else {
-            print("Failed to get user location, make sure to allow location access for this application.")
-        }
-        
+//    @objc func didLongPress(_ sender: UILongPressGestureRecognizer) {
+//        guard sender.state == .began else { return }
+//
+//        // Convert points where user did a long press to map coordinates
+//        let point = sender.location(in: mapView)
+//        let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
+//
+//        if let origin = mapView.userLocation?.coordinate {
+//            // Calculate the route from the user's location to the set location
+//            calculateRoute(from: origin, to: coordinate)
+//        } else {
+//            print("Failed to get user location, make sure to allow location access for this application.")
+//        }
+//
+//    }
+    
+    func showAnnotation(_ annotations: )
+    
+    // Display search results
+    func displaySearchResults(_ results: [SearchResult]) {
+        let annotations = results.map({result -> MGLAnnotation in
+            let pointAnnotation = MGLPointAnnotation()
+            pointAnnotation.title = result.name
+            pointAnnotation.subtitle = result.address?.formattedAddress(style: .medium)
+            pointAnnotation.coordinate = result.coordinate
+            
+            return pointAnnotation
+        })
+        mapView.addAnnotations(annotations)
+        mapView.showAnnotations(annotations, animated: true)
     }
     
     // Calculate route to be used for navigation
@@ -139,6 +155,8 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 
 extension ViewController: SearchControllerDelegate {
     func searchResultSelected(_ searchResult: SearchResult) { }
-    func categorySearchResultsReceived(results: [SearchResult]) { }
+    func categorySearchResultsReceived(results: [SearchResult]) {
+    }
+    
     func userFavoriteSelected(_ userFavorite: FavoriteRecord) { }
 }
