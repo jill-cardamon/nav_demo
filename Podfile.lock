@@ -1,0 +1,68 @@
+PODS:
+  - Mapbox-iOS-SDK (5.9.0):
+    - MapboxMobileEvents (= 0.10.2)
+  - MapboxAccounts (2.2.0)
+  - MapboxCoreNavigation (0.40.0):
+    - MapboxAccounts (~> 2.2.0)
+    - MapboxDirections (~> 0.31.0)
+    - MapboxMobileEvents (~> 0.10.2)
+    - MapboxNavigationNative (~> 6.2.1)
+    - Turf (~> 0.3.0)
+  - MapboxDirections (0.31.0):
+    - Polyline (~> 4.2)
+    - Turf (~> 0.3)
+  - MapboxMobileEvents (0.10.2)
+  - MapboxNavigation (0.40.0):
+    - Mapbox-iOS-SDK (~> 5.6)
+    - MapboxCoreNavigation (= 0.40.0)
+    - MapboxMobileEvents (~> 0.10.2)
+    - MapboxSpeech (~> 0.3.0)
+    - Solar (~> 2.1)
+  - MapboxNavigationNative (6.2.1)
+  - MapboxSearch (1.0.0-beta.1):
+    - MapboxMobileEvents (~> 0.10.0)
+  - MapboxSearchUI (1.0.0-beta.1):
+    - MapboxSearch (< 2.0, >= 1.0.0-beta)
+  - MapboxSpeech (0.3.0)
+  - Polyline (4.2.1)
+  - Solar (2.1.0)
+  - Turf (0.3.0)
+
+DEPENDENCIES:
+  - MapboxNavigation (~> 0.40.0)
+  - MapboxSearchUI (< 2.0, >= 1.0.0-beta.1)
+
+SPEC REPOS:
+  trunk:
+    - Mapbox-iOS-SDK
+    - MapboxAccounts
+    - MapboxCoreNavigation
+    - MapboxDirections
+    - MapboxMobileEvents
+    - MapboxNavigation
+    - MapboxNavigationNative
+    - MapboxSearch
+    - MapboxSearchUI
+    - MapboxSpeech
+    - Polyline
+    - Solar
+    - Turf
+
+SPEC CHECKSUMS:
+  Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
+  MapboxAccounts: f9716ba2cc66013e44ef93e0e16cfa1049f3aeec
+  MapboxCoreNavigation: 2856c46bd064bb11c406ba00191d579cda424efa
+  MapboxDirections: 0b97aa320d7cddbe72d6513becc07dd747935240
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
+  MapboxNavigation: 42bae50b0381dce317c85884ba0de38fc68a4814
+  MapboxNavigationNative: 11dc22140f4698d3f26989f2b6379dc81ef0d4c1
+  MapboxSearch: c35761821af8eff487858d6511953e06d93210b9
+  MapboxSearchUI: 743698b8b8d8ba74692255cef661687ef1e87de3
+  MapboxSpeech: 403415e932e084cf290b9d55c49ab7ea210b9595
+  Polyline: 0e9890790292741c8186201a536b6bb6a78d02dd
+  Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
+  Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
+
+PODFILE CHECKSUM: fc7df69518539ee7fb6205c9bd529c5e363bfa80
+
+COCOAPODS: 1.9.3

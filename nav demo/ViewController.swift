@@ -17,7 +17,7 @@ class ViewController: UIViewController, MGLMapViewDelegate {
     var mapView: NavigationMapView!
     var routeOptions: NavigationRouteOptions?
     var route: Route?
-    var startButton: UIButton?
+//    var startButton: UIButton?
     
     let searchController = MapboxSearchController()
 
@@ -30,17 +30,17 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         view.addSubview(mapView)
         
         mapView.delegate = self
-        searchController.delegate = self
-        let panelController = MapboxPanelController(rootViewController: searchController)
-        addChild(panelController)
+//        searchController.delegate = self
+//        let panelController = MapboxPanelController(rootViewController: searchController)
+//        addChild(panelController)
         
         // Allow the map to display the users location.
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true, completionHandler: nil)
         
         // Add a gesture recognizer to the map view
-//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector (didLongPress(_:)))
-//        mapView.addGestureRecognizer(longPress)
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector (didLongPress(_:)))
+        mapView.addGestureRecognizer(longPress)
         
 //        // put a start button in
 //        startButton = UIButton()
@@ -52,50 +52,50 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 
     }
     
-//    @objc func didLongPress(_ sender: UILongPressGestureRecognizer) {
-//        guard sender.state == .began else { return }
-//
-//        // Convert points where user did a long press to map coordinates
-//        let point = sender.location(in: mapView)
-//        let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
-//
-//        if let origin = mapView.userLocation?.coordinate {
-//            // Calculate the route from the user's location to the set location
-//            calculateRoute(from: origin, to: coordinate)
-//        } else {
-//            print("Failed to get user location, make sure to allow location access for this application.")
-//        }
-//
-//    }
-    
-    func showAnnotation(_ annotations: [MGLAnnotation], isPOI: Bool) {
-        guard !annotations.isEmpty else { return }
-        
-        if let existingAnnotations = mapView.annotations {
-            mapView.removeAnnotations(existingAnnotations)
-        }
-        mapView.addAnnotations(annotations)
-        
-        if annotations.count == 1, let annotation = annotations.first {
-            mapView.setCenter(annotation.coordinate, zoomLevel: 15, animated: true)
+    @objc func didLongPress(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+
+        // Convert points where user did a long press to map coordinates
+        let point = sender.location(in: mapView)
+        let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
+
+        if let origin = mapView.userLocation?.coordinate {
+            // Calculate the route from the user's location to the set location
+            calculateRoute(from: origin, to: coordinate)
         } else {
-            mapView.showAnnotations(annotations, animated: true)
+            print("Failed to get user location, make sure to allow location access for this application.")
         }
+
     }
     
-    // Display search results
-    func displaySearchResults(_ results: [SearchResult]) {
-        let annotations = results.map({result -> MGLAnnotation in
-            let pointAnnotation = MGLPointAnnotation()
-            pointAnnotation.title = result.name
-            pointAnnotation.subtitle = result.address?.formattedAddress(style: .medium)
-            pointAnnotation.coordinate = result.coordinate
-            
-            return pointAnnotation
-        })
-        mapView.addAnnotations(annotations)
-        mapView.showAnnotations(annotations, animated: true)
-    }
+//    func showAnnotation(_ annotations: [MGLAnnotation], isPOI: Bool) {
+//        guard !annotations.isEmpty else { return }
+//
+//        if let existingAnnotations = mapView.annotations {
+//            mapView.removeAnnotations(existingAnnotations)
+//        }
+//        mapView.addAnnotations(annotations)
+//
+//        if annotations.count == 1, let annotation = annotations.first {
+//            mapView.setCenter(annotation.coordinate, zoomLevel: 15, animated: true)
+//        } else {
+//            mapView.showAnnotations(annotations, animated: true)
+//        }
+//    }
+//
+//    // Display search results
+//    func displaySearchResults(_ results: [SearchResult]) {
+//        let annotations = results.map({result -> MGLAnnotation in
+//            let pointAnnotation = MGLPointAnnotation()
+//            pointAnnotation.title = result.name
+//            pointAnnotation.subtitle = result.address?.formattedAddress(style: .medium)
+//            pointAnnotation.coordinate = result.coordinate
+//
+//            return pointAnnotation
+//        })
+//        mapView.addAnnotations(annotations)
+//        mapView.showAnnotations(annotations, animated: true)
+//    }
     
     // Calculate route to be used for navigation
     func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
@@ -175,35 +175,35 @@ class ViewController: UIViewController, MGLMapViewDelegate {
     }
 }
 
-extension ViewController: SearchControllerDelegate {
-    func categorySearchResultsReceived(results: [SearchResult]) {
-        
-        let annotations = results.map { searchResult -> MGLPointAnnotation in
-            let annotation = MGLPointAnnotation()
-            annotation.coordinate = searchResult.coordinate
-            annotation.title = searchResult.name
-            annotation.subtitle = searchResult.address?.formattedAddress(style: .medium)
-            
-            return annotation
-        }
-        showAnnotation(annotations, isPOI: false)
-    }
-    
-    func searchResultSelected(_ searchResult: SearchResult) {
-        let annotation = MGLPointAnnotation()
-        annotation.coordinate = searchResult.coordinate
-        annotation.title = searchResult.name
-        annotation.subtitle = searchResult.address?.formattedAddress(style: .medium)
-        
-        showAnnotation([annotation], isPOI: searchResult.type == .POI)
-    }
-    
-    func userFavoriteSelected(_ userFavorite: FavoriteRecord) {
-        let annotation = MGLPointAnnotation()
-        annotation.coordinate = userFavorite.coordinate
-        annotation.title = userFavorite.name
-        annotation.subtitle = userFavorite.address?.formattedAddress(style: .medium)
-        
-        showAnnotation([annotation], isPOI: true)
-    }
-}
+//extension ViewController: SearchControllerDelegate {
+//    func categorySearchResultsReceived(results: [SearchResult]) {
+//        
+//        let annotations = results.map { searchResult -> MGLPointAnnotation in
+//            let annotation = MGLPointAnnotation()
+//            annotation.coordinate = searchResult.coordinate
+//            annotation.title = searchResult.name
+//            annotation.subtitle = searchResult.address?.formattedAddress(style: .medium)
+//            
+//            return annotation
+//        }
+//        showAnnotation(annotations, isPOI: false)
+//    }
+//    
+//    func searchResultSelected(_ searchResult: SearchResult) {
+//        let annotation = MGLPointAnnotation()
+//        annotation.coordinate = searchResult.coordinate
+//        annotation.title = searchResult.name
+//        annotation.subtitle = searchResult.address?.formattedAddress(style: .medium)
+//        
+//        showAnnotation([annotation], isPOI: searchResult.type == .POI)
+//    }
+//    
+//    func userFavoriteSelected(_ userFavorite: FavoriteRecord) {
+//        let annotation = MGLPointAnnotation()
+//        annotation.coordinate = userFavorite.coordinate
+//        annotation.title = userFavorite.name
+//        annotation.subtitle = userFavorite.address?.formattedAddress(style: .medium)
+//        
+//        showAnnotation([annotation], isPOI: true)
+//    }
+//}
